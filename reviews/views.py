@@ -1,15 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import View
-from .form import ReviewForm
-from .models import Review
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
+from .form import ReviewForm
+from .models import Review
 
 
 # Create your views here.
-
-
 class ReviewView(View):
     def get(self, request):
         form = ReviewForm()
