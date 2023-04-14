@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .form import ReviewForm
 from django.views import View
-from django.views.generic.base import TemplateView
+from .form import ReviewForm
 from .models import Review
+from django.views.generic.base import TemplateView
+from django.views.generic import ListView, DetailView
 
 
 # Create your views here.
@@ -34,22 +35,12 @@ class ThankYouView(TemplateView):
         return context
 
 
-class ReviewListView(TemplateView):
+class ReviewListView(ListView):
     template_name = "reviews/review_list.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["reviews"] = Review.objects.all()
-
-        return context
+    model = Review
+    context_object_name = "reviews"
 
 
-class ReviewDetailView(TemplateView):
+class ReviewDetailView(DetailView):
     template_name = "reviews/review_detail.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        print(kwargs)
-        review_id = kwargs["id"]
-        context["review"] = Review.objects.get(id=review_id)
-        return context
+    model = Review
