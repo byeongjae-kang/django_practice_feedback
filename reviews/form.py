@@ -1,9 +1,8 @@
-from django import forms
+from django.forms import ModelForm
+from .models import Review
 
 
-class ReviewForm(forms.Form):
-    user_name = forms.CharField(
-        label="Your Name",
-        max_length=100,
-        error_messages={"required": "Your name must not be empty"},
-    )
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = "__all__"
